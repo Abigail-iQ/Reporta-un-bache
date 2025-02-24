@@ -43,3 +43,14 @@ body {
     margin-bottom: 10px;
     border-radius: 5px;
 }
+/* Estilos para la imagen */
+.img-fluid.rounded {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    transition: transform 0.3s ease; /* Efecto hover */
+}
+
+.img-fluid.rounded:hover {
+    transform: scale(1.02); /* Efecto de zoom al pasar el mouse */
+}
