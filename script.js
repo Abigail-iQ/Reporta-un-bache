@@ -1,11 +1,28 @@
-// Inicializar mapa
 let map;
 let markers = [];
+let selectedLocation = null;
 
+// Inicializar mapa
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 19.4326, lng: -99.1332 }, // Ejemplo: CDMX
         zoom: 12
+    });
+
+    // Escuchar clics en el mapa
+    map.addListener('click', (event) => {
+        if (selectedLocation) {
+            selectedLocation.setMap(null); // Eliminar marcador anterior
+        }
+        selectedLocation = new google.maps.Marker({
+            position: event.latLng,
+            map: map,
+            title: 'Ubicación del bache'
+        });
+
+        // Mostrar formulario
+        document.getElementById('reportForm').style.display = 'block';
+        document.getElementById('ubicacion').value = event.latLng.toString();
     });
 }
 
@@ -22,18 +39,13 @@ document.getElementById('cancelBtn').addEventListener('click', () => {
 document.getElementById('bacheForm').addEventListener('submit', (e) => {
     e.preventDefault();
     
+    const ubicacion = document.getElementById('ubicacion').value;
     const descripcion = document.getElementById('descripcion').value;
     const esAnonimo = document.getElementById('anonimo').checked;
     
-    // Obtener ubicación actual (simulada para el prototipo)
-    const ubicacion = {
-        lat: map.getCenter().lat() + (Math.random() - 0.5) * 0.01,
-        lng: map.getCenter().lng() + (Math.random() - 0.5) * 0.01
-    };
-
     // Crear marcador
     const marker = new google.maps.Marker({
-        position: ubicacion,
+        position: JSON.parse(ubicacion.replace('(', '[').replace(')', ']')),
         map: map,
         title: `Bache reportado: ${descripcion}`
     });
