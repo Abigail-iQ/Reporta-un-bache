@@ -18,7 +18,7 @@
         </div>
     </nav>
 
-    <!-- Mapa y sección de reportes -->
+    <!-- Mapa interactivo -->
     <div id="map"></div>
     
     <!-- Botón flotante para reportar -->
@@ -28,6 +28,10 @@
     <div id="reportForm" class="form-container">
         <h3>Reportar Bache</h3>
         <form id="bacheForm">
+            <div class="mb-3">
+                <label>Ubicación:</label>
+                <input type="text" id="ubicacion" class="form-control" readonly>
+            </div>
             <div class="mb-3">
                 <label>Descripción:</label>
                 <textarea id="descripcion" class="form-control" required></textarea>
